@@ -16,6 +16,33 @@ int counter = 0;
 #define WIFI_NETWORK "AndroidAP_note8"
 #define WIFI_PASSWORD "sensor123"
 
+void connectToWiFi();
+
+void setup() 
+{
+  Serial.begin(9600);
+  // connectToWiFi();
+  // ThingSpeak.begin(client);
+}
+
+void loop() 
+{
+  counter++;
+
+  // Writing to only one field.
+  // ThingSpeak.writeField(CHANNEL_ID, 1, counter, CHANNEL_API_KEY);
+
+  // Writing to multiple fields.
+
+  // ThingSpeak.setField(1, counter);
+  // ThingSpeak.setField(2, WiFi.RSSI());
+
+  // ThingSpeak.writeFields(CHANNEL_ID, CHANNEL_API_KEY);
+
+  // A delay of 15s is required between consecutive data sent to ThingSpeak.
+  delay(15000);
+}
+
 void connectToWiFi()
 {
   Serial.print("Connecting to WiFi");
@@ -43,28 +70,4 @@ void connectToWiFi()
     Serial.print(" Connected!");
     Serial.println(WiFi.localIP());
   }
-}
-
-void setup() 
-{
-  Serial.begin(9600);
-  connectToWiFi();
-  ThingSpeak.begin(client);
-}
-
-void loop() 
-{
-  counter++;
-
-  // Writing to only one field.
-  // ThingSpeak.writeField(CHANNEL_ID, 1, counter, CHANNEL_API_KEY);
-
-  // Writing to multiple fields.
-  ThingSpeak.setField(1, counter);
-  ThingSpeak.setField(2, WiFi.RSSI());
-
-  ThingSpeak.writeFields(CHANNEL_ID, CHANNEL_API_KEY);
-
-  // A delay of 15s is required between consecutive data sent to ThingSpeak.
-  delay(15000);
 }
