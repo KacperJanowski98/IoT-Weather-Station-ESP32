@@ -1,8 +1,20 @@
+/**
+ * @file main.cpp
+ * @author Kacper Janowski
+ * @brief 
+ * @version 0.1
+ * @date 2021-10-19
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #include <Arduino.h>
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include <WiFi.h>
 #include "ThingSpeak.h"
+#include "Dht11.h"
+#include "SoilMoisture.h"
 
 #define CHANNEL_ID 1540710
 #define CHANNEL_API_KEY "C3MWNJUOTW5095ZC"
