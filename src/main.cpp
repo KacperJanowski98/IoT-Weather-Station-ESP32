@@ -1,12 +1,11 @@
 /**
+ * ***************************************************************************************************
  * @file main.cpp
  * @author Kacper Janowski
  * @brief 
  * @version 0.1
  * @date 2021-10-19
- * 
- * @copyright Copyright (c) 2021
- * 
+ * ***************************************************************************************************
  */
 #include <Arduino.h>
 #include <Adafruit_Sensor.h>
@@ -83,3 +82,5 @@ void connectToWiFi()
     Serial.println(WiFi.localIP());
   }
 }
+
+/********************************** (C) COPYRIGHT Kacper Janowski 2021 *********** END OF FILE ******/
