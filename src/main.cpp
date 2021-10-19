@@ -9,7 +9,6 @@
  */
 #include <Arduino.h>
 #include <Adafruit_Sensor.h>
-#include <DHT.h>
 #include <WiFi.h>
 #include "ThingSpeak.h"
 #include "Dht11.h"
@@ -19,6 +18,13 @@
 #define CHANNEL_API_KEY "C3MWNJUOTW5095ZC"
 
 WiFiClient client;
+
+DHT11Core Dht11Sensor;
+
+DHT dht(DHTPIN, DHTTYPE);
+std::shared_ptr<DHT> pDht = std::make_shared<DHT>(dht);
+
+Dht11Output_t Dht11OutputData;
 
 // test :TODO remove 
 int counter = 0;
@@ -34,11 +40,12 @@ void setup()
   Serial.begin(9600);
   // connectToWiFi();
   // ThingSpeak.begin(client);
+  Dht11Sensor.DhtInit(pDht);
 }
 
 void loop() 
 {
-  counter++;
+  // counter++;
 
   // Writing to only one field.
   // ThingSpeak.writeField(CHANNEL_ID, 1, counter, CHANNEL_API_KEY);
@@ -51,7 +58,30 @@ void loop()
   // ThingSpeak.writeFields(CHANNEL_ID, CHANNEL_API_KEY);
 
   // A delay of 15s is required between consecutive data sent to ThingSpeak.
-  delay(15000);
+  // delay(15000);
+
+  delay(2000);
+
+  Dht11Sensor.DhtReadData(&Dht11OutputData, pDht);
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(Dht11OutputData.humidity) || isnan(Dht11OutputData.temperatur))
+  {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  // Compute heat index in Celsius (isFahreheit = false)
+  float hic = dht.computeHeatIndex(Dht11OutputData.temperatur, Dht11OutputData.humidity, false);
+
+  Serial.print(F("Humidity: "));
+  Serial.print(Dht11OutputData.humidity);
+  Serial.print(F("%  Temperature: "));
+  Serial.print(Dht11OutputData.temperatur);
+  Serial.print(F("°C "));
+  Serial.print(hic);
+  Serial.print(F("°C "));
+  Serial.print("\n");
 }
 
 void connectToWiFi()

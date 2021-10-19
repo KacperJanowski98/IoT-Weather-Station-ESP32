@@ -10,6 +10,30 @@
 #ifndef _DHT11_H_
 #define _DHT11_H_
 
+#include <DHT.h>
+#include <memory>
+
+#define DHTPIN 4
+#define DHTTYPE DHT11
+
+typedef struct 
+{
+    float temperatur;
+    float humidity;
+} Dht11Output_t;
+
+class DHT11Core
+{
+public:
+    DHT11Core() {}
+
+    ~DHT11Core() {}
+
+    void DhtInit(std::shared_ptr<DHT>& dht);
+
+    void DhtReadData(Dht11Output_t *pDht11Output, std::shared_ptr<DHT>& dht);
+};
+
 
 
 #endif //_DHT11_H_
