@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
+#include <WiFi.h>
 
 const int LED_B = 13;
 
