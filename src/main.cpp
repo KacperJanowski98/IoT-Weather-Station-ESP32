@@ -2,6 +2,15 @@
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include <WiFi.h>
+#include "ThingSpeak.h"
+
+#define CHANNEL_ID 1540710
+#define CHANNEL_API_KEY "C3MWNJUOTW5095ZC"
+
+WiFiClient client;
+
+// test :TODO remove 
+int counter = 0;
 
 #define WIFI_TIMEOUT_MS 20000
 #define WIFI_NETWORK "AndroidAP_note8"
