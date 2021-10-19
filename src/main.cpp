@@ -47,10 +47,17 @@ void connectToWiFi()
 
 void setup() 
 {
-  
+  Serial.begin(9600);
+  connectToWiFi();
+  ThingSpeak.begin(client);
 }
 
 void loop() 
 {
+  counter++;
 
+  ThingSpeak.writeField(CHANNEL_ID, 1, counter, CHANNEL_API_KEY);
+
+  // A delay of 15s is required between consecutive data sent to ThingSpeak.
+  delay(15000);
 }
