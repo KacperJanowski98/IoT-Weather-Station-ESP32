@@ -16,22 +16,34 @@
 #define DHTPIN 4
 #define DHTTYPE DHT11
 
-typedef struct 
-{
-    float temperatur;
-    float humidity;
-} DhtOutput_t;
-
 class DHTCore
 {
 public:
-    DHTCore() {}
+    DHTCore(std::shared_ptr<DHT> dht,
+            float temperature,
+            float humidity);
 
-    ~DHTCore() {}
+    DHTCore(const DHTCore& other);
 
-    void DhtInit(std::shared_ptr<DHT>& dht);
+    DHTCore(DHTCore&& other) noexcept;
 
-    void DhtReadData(DhtOutput_t *pDht11Output, std::shared_ptr<DHT>& dht);
+    DHTCore& operator=(const DHTCore& other);
+
+    DHTCore& operator=(DHTCore&& other) noexcept;
+
+    ~DHTCore();
+
+    void DhtInit();
+
+    float getTemperature();
+
+    float getHumidity();
+
+    void DhtReadData();
+private:
+    std::shared_ptr<DHT> m_dht;
+    float m_temperature;
+    float m_humidity;
 };
 
 

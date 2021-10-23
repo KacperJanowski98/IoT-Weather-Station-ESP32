@@ -18,13 +18,9 @@
 #define CHANNEL_API_KEY "C3MWNJUOTW5095ZC"
 
 WiFiClient client;
-
-DHTCore Dht11Sensor;
-
 DHT dht(DHTPIN, DHTTYPE);
-std::shared_ptr<DHT> pDht = std::make_shared<DHT>(dht);
 
-DhtOutput_t Dht11OutputData;
+DHTCore Dht11Sensor(std::make_shared<DHT>(dht), 0.0f, 0.0f);
 
 // test :TODO remove 
 int counter = 0;
@@ -40,7 +36,7 @@ void setup()
   Serial.begin(9600);
   // connectToWiFi();
   // ThingSpeak.begin(client);
-  Dht11Sensor.DhtInit(pDht);
+  Dht11Sensor.DhtInit();
 }
 
 void loop() 
@@ -62,22 +58,22 @@ void loop()
 
   delay(2000);
 
-  Dht11Sensor.DhtReadData(&Dht11OutputData, pDht);
+  Dht11Sensor.DhtReadData();
 
   // Check if any reads failed and exit early (to try again).
-  if (isnan(Dht11OutputData.humidity) || isnan(Dht11OutputData.temperatur))
+  if (isnan(Dht11Sensor.getHumidity()) || isnan(Dht11Sensor.getTemperature()))
   {
     Serial.println("Failed to read from DHT sensor!");
     return;
   }
 
   // Compute heat index in Celsius (isFahreheit = false)
-  float hic = dht.computeHeatIndex(Dht11OutputData.temperatur, Dht11OutputData.humidity, false);
+  float hic = dht.computeHeatIndex(Dht11Sensor.getTemperature(), Dht11Sensor.getHumidity(), false);
 
   Serial.print(F("Humidity: "));
-  Serial.print(Dht11OutputData.humidity);
+  Serial.print(Dht11Sensor.getHumidity());
   Serial.print(F("%  Temperature: "));
-  Serial.print(Dht11OutputData.temperatur);
+  Serial.print(Dht11Sensor.getTemperature());
   Serial.print(F("°C "));
   Serial.print(hic);
   Serial.print(F("°C "));
