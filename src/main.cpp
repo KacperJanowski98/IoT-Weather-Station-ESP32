@@ -20,7 +20,7 @@
 WiFiClient client;
 DHT dht(DHTPIN, DHTTYPE);
 
-DHTCore Dht11Sensor(std::make_shared<DHT>(dht), 0.0f, 0.0f);
+DHTCore Dht11Sensor(std::make_shared<DHT>(dht), 0.0f, 0.0f, 0.0f);
 
 // test :TODO remove 
 int counter = 0;
@@ -67,8 +67,9 @@ void loop()
     return;
   }
 
-  // Compute heat index in Celsius (isFahreheit = false)
-  float hic = dht.computeHeatIndex(Dht11Sensor.getTemperature(), Dht11Sensor.getHumidity(), false);
+  Dht11Sensor.calculatedTemperature();
+
+  float hic = Dht11Sensor.getComputeHeat();
 
   Serial.print(F("Humidity: "));
   Serial.print(Dht11Sensor.getHumidity());

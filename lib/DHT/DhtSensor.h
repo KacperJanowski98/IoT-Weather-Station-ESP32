@@ -21,7 +21,8 @@ class DHTCore
 public:
     DHTCore(std::shared_ptr<DHT> dht,
             float temperature,
-            float humidity);
+            float humidity,
+            float computeHeat);
 
     DHTCore(const DHTCore& other);
 
@@ -39,14 +40,17 @@ public:
 
     float getHumidity();
 
+    float getComputeHeat();
+
     void DhtReadData();
+
+    void calculatedTemperature();
 private:
     std::shared_ptr<DHT> m_dht;
     float m_temperature;
     float m_humidity;
+    float m_computeHeat;
 };
-
-
 
 #endif //_DHTSENSOR_H_
 
