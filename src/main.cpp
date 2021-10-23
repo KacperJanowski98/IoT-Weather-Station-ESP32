@@ -69,16 +69,8 @@ void loop()
 
   Dht11Sensor.calculatedTemperature();
 
-  float hic = Dht11Sensor.getComputeHeat();
-
-  Serial.print(F("Humidity: "));
-  Serial.print(Dht11Sensor.getHumidity());
-  Serial.print(F("%  Temperature: "));
-  Serial.print(Dht11Sensor.getTemperature());
-  Serial.print(F("°C "));
-  Serial.print(hic);
-  Serial.print(F("°C "));
-  Serial.print("\n");
+  // display
+  Dht11Sensor.displayParameter();
 }
 
 void connectToWiFi()

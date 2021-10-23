@@ -1,7 +1,7 @@
 /**
  * ***************************************************************************************************
  * @file DhtSensor.h
- * @author your name (you@domain.com)
+ * @author Kacper Janowski
  * @brief 
  * @version 0.1
  * @date 2021-10-19
@@ -45,6 +45,8 @@ public:
     void DhtReadData();
 
     void calculatedTemperature();
+
+    void displayParameter();
 private:
     std::shared_ptr<DHT> m_dht;
     float m_temperature;

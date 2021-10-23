@@ -87,4 +87,16 @@ void DHTCore::calculatedTemperature()
     DHTCore::m_computeHeat = DHTCore::m_dht->computeHeatIndex(DHTCore::m_temperature, DHTCore::m_humidity, false);
 }
 
+void DHTCore::displayParameter()
+{
+    Serial.print(F("Humidity: "));
+    Serial.print(DHTCore::m_humidity);
+    Serial.print(F("%  Temperature: "));
+    Serial.print(DHTCore::m_temperature);
+    Serial.print(F("°C "));
+    Serial.print(DHTCore::m_computeHeat);
+    Serial.print(F("°C "));
+    Serial.print("\n");
+}
+
 /********************************** (C) COPYRIGHT Kacper Janowski 2021 *********** END OF FILE ******/

@@ -10,6 +10,8 @@
 #ifndef _SOILMOISTURE_H_
 #define _SOILMOISTURE_H_
 
+#include <memory>
+
 
 #endif //_SOILMOISTURE_H_
 
