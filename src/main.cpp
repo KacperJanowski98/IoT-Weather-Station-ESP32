@@ -11,7 +11,7 @@
 #include <Adafruit_Sensor.h>
 #include <WiFi.h>
 #include "ThingSpeak.h"
-#include "Dht11.h"
+#include "DhtSensor.h"
 #include "SoilMoisture.h"
 
 #define CHANNEL_ID 1540710
@@ -19,12 +19,12 @@
 
 WiFiClient client;
 
-DHT11Core Dht11Sensor;
+DHTCore Dht11Sensor;
 
 DHT dht(DHTPIN, DHTTYPE);
 std::shared_ptr<DHT> pDht = std::make_shared<DHT>(dht);
 
-Dht11Output_t Dht11OutputData;
+DhtOutput_t Dht11OutputData;
 
 // test :TODO remove 
 int counter = 0;

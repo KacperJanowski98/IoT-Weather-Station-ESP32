@@ -1,14 +1,14 @@
 /**
  * ***************************************************************************************************
- * @file Dht11.h
+ * @file DhtSensor.h
  * @author your name (you@domain.com)
  * @brief 
  * @version 0.1
  * @date 2021-10-19
  * ***************************************************************************************************
  */
-#ifndef _DHT11_H_
-#define _DHT11_H_
+#ifndef _DHTSENSOR_H_
+#define _DHTSENSOR_H_
 
 #include <DHT.h>
 #include <memory>
@@ -20,22 +20,22 @@ typedef struct
 {
     float temperatur;
     float humidity;
-} Dht11Output_t;
+} DhtOutput_t;
 
-class DHT11Core
+class DHTCore
 {
 public:
-    DHT11Core() {}
+    DHTCore() {}
 
-    ~DHT11Core() {}
+    ~DHTCore() {}
 
     void DhtInit(std::shared_ptr<DHT>& dht);
 
-    void DhtReadData(Dht11Output_t *pDht11Output, std::shared_ptr<DHT>& dht);
+    void DhtReadData(DhtOutput_t *pDht11Output, std::shared_ptr<DHT>& dht);
 };
 
 
 
-#endif //_DHT11_H_
+#endif //_DHTSENSOR_H_
 
 /********************************** (C) COPYRIGHT Kacper Janowski 2021 *********** END OF FILE ******/
