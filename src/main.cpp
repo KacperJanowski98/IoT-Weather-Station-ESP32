@@ -12,7 +12,6 @@
 #include <WiFi.h>
 #include "ThingSpeak.h"
 #include "DhtSensor.h"
-#include "SoilMoisture.h"
 
 #define CHANNEL_ID 1540710
 #define CHANNEL_API_KEY "C3MWNJUOTW5095ZC"
