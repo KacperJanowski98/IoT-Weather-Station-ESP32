@@ -22,9 +22,6 @@ DHT dht(DHTPIN, DHTTYPE);
 
 DHTCore Dht11Sensor(std::make_shared<DHT>(dht), 0.0f, 0.0f, 0.0f);
 
-// test :TODO remove 
-int counter = 0;
-
 #define WIFI_TIMEOUT_MS 20000
 #define WIFI_NETWORK "AndroidAP_note8"
 #define WIFI_PASSWORD "sensor123"
@@ -34,30 +31,13 @@ void connectToWiFi();
 void setup() 
 {
   Serial.begin(9600);
-  // connectToWiFi();
-  // ThingSpeak.begin(client);
+  connectToWiFi();
+  ThingSpeak.begin(client);
   Dht11Sensor.DhtInit();
 }
 
 void loop() 
 {
-  // counter++;
-
-  // Writing to only one field.
-  // ThingSpeak.writeField(CHANNEL_ID, 1, counter, CHANNEL_API_KEY);
-
-  // Writing to multiple fields.
-
-  // ThingSpeak.setField(1, counter);
-  // ThingSpeak.setField(2, WiFi.RSSI());
-
-  // ThingSpeak.writeFields(CHANNEL_ID, CHANNEL_API_KEY);
-
-  // A delay of 15s is required between consecutive data sent to ThingSpeak.
-  // delay(15000);
-
-  delay(2000);
-
   Dht11Sensor.DhtReadData();
 
   // Check if any reads failed and exit early (to try again).
@@ -69,8 +49,20 @@ void loop()
 
   Dht11Sensor.calculatedTemperature();
 
-  // display
+  // Serial display
   Dht11Sensor.displayParameter();
+
+  // Writing to only one field.
+  // ThingSpeak.writeField(CHANNEL_ID, 1, counter, CHANNEL_API_KEY);
+
+  // Writing to multiple fields.
+  ThingSpeak.setField(1, Dht11Sensor.getComputeHeat());
+  ThingSpeak.setField(2, Dht11Sensor.getHumidity());
+
+  ThingSpeak.writeFields(CHANNEL_ID, CHANNEL_API_KEY);
+
+  // A delay of 15s is required between consecutive data sent to ThingSpeak.
+  delay(15000);
 }
 
 void connectToWiFi()
