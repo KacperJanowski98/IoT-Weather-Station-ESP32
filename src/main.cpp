@@ -7,6 +7,7 @@
  * @date 2021-10-19
  * ***************************************************************************************************
  */
+#include <Wire.h>
 #include <Arduino.h>
 #include <Adafruit_Sensor.h>
 #include <WiFi.h>
@@ -30,6 +31,7 @@ void connectToWiFi();
 void setup() 
 {
   Serial.begin(9600);
+  Wire.begin();
   connectToWiFi();
   ThingSpeak.begin(client);
   Dht11Sensor.DhtInit();
