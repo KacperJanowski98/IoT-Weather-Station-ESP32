@@ -44,6 +44,7 @@ void setup()
 void loop() 
 {
   Dht11Sensor.DhtReadData();
+  Dht22Sensor.DhtReadData();
 
   // Check if any reads failed and exit early (to try again).
   if (isnan(Dht11Sensor.getHumidity()) || isnan(Dht11Sensor.getTemperature()))
@@ -52,10 +53,22 @@ void loop()
     return;
   }
 
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(Dht22Sensor.getHumidity()) || isnan(Dht22Sensor.getTemperature()))
+  {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
   Dht11Sensor.calculatedTemperature();
 
+  Dht22Sensor.calculatedTemperature();
+
   // Serial display
+  Serial.println("Inside measure:");
   Dht11Sensor.displayParameter();
+  Serial.println("Outside measure:");
+  Dht22Sensor.displayParameter();
 
   // Writing to only one field.
   // ThingSpeak.writeField(CHANNEL_ID, 1, counter, CHANNEL_API_KEY);
