@@ -49,14 +49,14 @@ void loop()
   // Check if any reads failed and exit early (to try again).
   if (isnan(Dht11Sensor.getHumidity()) || isnan(Dht11Sensor.getTemperature()))
   {
-    Serial.println("Failed to read from DHT sensor!");
+    Serial.println("Failed to read from DHT11 sensor!");
     return;
   }
 
   // Check if any reads failed and exit early (to try again).
   if (isnan(Dht22Sensor.getHumidity()) || isnan(Dht22Sensor.getTemperature()))
   {
-    Serial.println("Failed to read from DHT sensor!");
+    Serial.println("Failed to read from DHT22 sensor!");
     return;
   }
 
@@ -76,6 +76,8 @@ void loop()
   // Writing to multiple fields.
   ThingSpeak.setField(1, Dht11Sensor.getComputeHeat());
   ThingSpeak.setField(2, Dht11Sensor.getHumidity());
+  ThingSpeak.setField(3, Dht22Sensor.getComputeHeat());
+  ThingSpeak.setField(4, Dht22Sensor.getHumidity());
 
   ThingSpeak.writeFields(CHANNEL_ID, CHANNEL_API_KEY);
 
