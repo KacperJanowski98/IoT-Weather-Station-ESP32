@@ -18,9 +18,12 @@
 #define CHANNEL_API_KEY "C3MWNJUOTW5095ZC"
 
 WiFiClient client;
-DHT dht(DHTPIN, DHTTYPE);
+DHT dht11(DHTPIN, DHTTYPE);
+DHT dht22(DHT22PIN, DHT22TYPE);
 
-DHTCore Dht11Sensor(std::make_shared<DHT>(dht), 0.0f, 0.0f, 0.0f);
+DHTCore Dht11Sensor(std::make_shared<DHT>(dht11), 0.0f, 0.0f, 0.0f);
+
+DHTCore Dht22Sensor(std::make_shared<DHT>(dht22), 0.0f, 0.0f, 0.0f);
 
 #define WIFI_TIMEOUT_MS 20000
 #define WIFI_NETWORK "AndroidAP_note8"
@@ -35,6 +38,7 @@ void setup()
   connectToWiFi();
   ThingSpeak.begin(client);
   Dht11Sensor.DhtInit();
+  Dht22Sensor.DhtInit();
 }
 
 void loop() 

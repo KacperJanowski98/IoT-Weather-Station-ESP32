@@ -14,7 +14,9 @@
 #include <memory>
 
 #define DHTPIN 4
+#define DHT22PIN 5
 #define DHTTYPE DHT11
+#define DHT22TYPE DHT22
 
 class DHTCore
 {
