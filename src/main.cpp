@@ -15,9 +15,7 @@
 #include <HTTPClient.h>
 #include "ThingSpeak.h"
 #include "DhtSensor.h"
-
-#define CHANNEL_ID 1540710
-#define CHANNEL_API_KEY "C3MWNJUOTW5095ZC"
+#include "config.h"
 
 WiFiClient client;
 DHT dht11(DHTPIN, DHTTYPE);
@@ -26,10 +24,6 @@ DHT dht22(DHT22PIN, DHT22TYPE);
 DHTCore Dht11Sensor(std::make_shared<DHT>(dht11), 0.0f, 0.0f, 0.0f);
 
 DHTCore Dht22Sensor(std::make_shared<DHT>(dht22), 0.0f, 0.0f, 0.0f);
-
-#define WIFI_TIMEOUT_MS 20000
-#define WIFI_NETWORK "AndroidAP_note8"
-#define WIFI_PASSWORD "sensor123"
 
 void connectToWiFi();
 
@@ -91,7 +85,7 @@ void connectToWiFi()
 {
   Serial.print("Connecting to WiFi");
   WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_NETWORK, WIFI_PASSWORD);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
   unsigned long startAttemptTime = millis();
 
