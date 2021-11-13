@@ -11,6 +11,8 @@
 #include <Arduino.h>
 #include <Adafruit_Sensor.h>
 #include <WiFi.h>
+#include <NTPClient.h>
+#include <HTTPClient.h>
 #include "ThingSpeak.h"
 #include "DhtSensor.h"
 
