@@ -17,6 +17,15 @@
 #include "DhtSensor.h"
 #include "config.h"
 
+// NTP Client
+WiFiUDP ntpUDP;
+NTPClient ntpClient(ntpUDP);
+
+// Loki & Infllux Clients
+HTTPClient httpInflux;
+HTTPClient httpLoki;
+HTTPClient httpGraphite;
+
 WiFiClient client;
 DHT dht11(DHTPIN, DHTTYPE);
 DHT dht22(DHT22PIN, DHT22TYPE);
@@ -27,11 +36,17 @@ DHTCore Dht22Sensor(std::make_shared<DHT>(dht22), 0.0f, 0.0f, 0.0f);
 
 void connectToWiFi();
 
+void submitToInflux(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside);
+void submitToLoki(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside, String message);
+void submitToGraphite(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside);
+
 void setup() 
 {
   Serial.begin(9600);
   Wire.begin();
   connectToWiFi();
+    // Initialize a NTPClient to get time
+  ntpClient.begin();
   ThingSpeak.begin(client);
   Dht11Sensor.DhtInit();
   Dht22Sensor.DhtInit();
@@ -56,6 +71,15 @@ void loop()
     return;
   }
 
+    // Update time via NTP if required
+  while (!ntpClient.update()) {
+    yield();
+    ntpClient.forceUpdate();
+  }
+
+  // Get current timestamp
+  unsigned long ts = ntpClient.getEpochTime();
+
   Dht11Sensor.calculatedTemperature();
 
   Dht22Sensor.calculatedTemperature();
@@ -76,6 +100,12 @@ void loop()
   ThingSpeak.setField(4, Dht22Sensor.getHumidity());
 
   ThingSpeak.writeFields(CHANNEL_ID, CHANNEL_API_KEY);
+
+  String message = "Ok";
+
+  submitToInflux(ts, Dht11Sensor.getComputeHeat(), Dht11Sensor.getHumidity(), Dht22Sensor.getComputeHeat(), Dht22Sensor.getHumidity());
+  submitToGraphite(ts, Dht11Sensor.getComputeHeat(), Dht11Sensor.getHumidity(), Dht22Sensor.getComputeHeat(), Dht22Sensor.getHumidity());
+  submitToLoki(ts, Dht11Sensor.getComputeHeat(), Dht11Sensor.getHumidity(), Dht22Sensor.getComputeHeat(), Dht22Sensor.getHumidity(), message);
 
   // A delay of 15s is required between consecutive data sent to ThingSpeak.
   delay(15000);
@@ -108,6 +138,53 @@ void connectToWiFi()
     Serial.print(" Connected!");
     Serial.println(WiFi.localIP());
   }
+}
+
+// Function to submit metrics to Influx
+void submitToInflux(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside)
+{
+  String influxClient = String("https://") + INFLUX_HOST + "/api/v2/write?org=" + INFLUX_ORG_ID + "&bucket=" + INFLUX_BUCKET + "&precision=s";
+  String body = String("temperature inside value=") + tempInside + " " + ts + "\n" + "humidity inside value=" + humInside + " " + ts + "\n" + "temperature outside value=" + tempOutSide + " " + ts + "\n" + "humidity outside value=" + humOutside + " " + ts;
+
+  // Submit POST request via HTTP
+  httpInflux.begin(influxClient);
+  httpInflux.addHeader("Authorization", INFLUX_TOKEN);
+  int httpCode = httpInflux.POST(body);
+  Serial.printf("Influx [HTTPS] POST...  Code: %d\n", httpCode);
+  httpInflux.end();
+}
+
+// Function to submit logs to Loki
+void submitToLoki(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside, String message)
+{
+  String lokiClient = String("https://") + LOKI_USER + ":" + LOKI_API_KEY + "@logs-prod-us-central1.grafana.net/loki/api/v1/push";
+  String body = String("{\"streams\": [{ \"stream\": { \"plant_id\": \"2021_11_13\", \"monitoring_type\": \"weather\"}, \"values\": [ [ \"") + ts + "000000000\", \"" + "temperatureInside=" + tempInside + " humidityInside=" + humInside + " temperatureOutside=" + tempOutSide + " humidityOutside=" + humOutside + " status=" + message + "\" ] ] }]}";
+
+  // Submit POST request via HTTP
+  httpLoki.begin(lokiClient);
+  httpLoki.addHeader("Content-Type", "application/json");
+  int httpCode = httpLoki.POST(body);
+  Serial.printf("Loki [HTTPS] POST...  Code: %\n", httpCode);
+  httpLoki.end();
+}
+
+// Function to submit logs to Graphite
+void submitToGraphite(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside) {
+  // build hosted metrics json payload
+  String body = String("[") +
+    "{\"name\":\"temperatureInside\",\"interval\":" + INTERVAL + ",\"value\":" + tempInside + ",\"mtype\":\"gauge\",\"time\":" + ts + "}," +
+    "{\"name\":\"humidityInside\",\"interval\":" + INTERVAL + ",\"value\":" + humInside + ",\"mtype\":\"gauge\",\"time\":" + ts + "}," +
+    "{\"name\":\"temperatureOutside\",\"interval\":" + INTERVAL + ",\"value\":" + tempOutSide + ",\"mtype\":\"gauge\",\"time\":" + ts + "}," +
+    "{\"name\":\"humidityOutside\",\"interval\":" + INTERVAL + ",\"value\":" + humOutside + ",\"mtype\":\"gauge\",\"time\":" + ts + "}]";
+
+  // submit POST request via HTTP
+  httpGraphite.begin("https://graphite-prod-01-eu-west-0.grafana.net/graphite/metrics");
+  httpGraphite.setAuthorization(GRAPHITE_USER, GRAPHITE_API_KEY);
+  httpGraphite.addHeader("Content-Type", "application/json");
+
+  int httpCode = httpGraphite.POST(body);
+  Serial.printf("Graphite [HTTPS] POST...  Code: %\n", httpCode);
+  httpGraphite.end();
 }
 
 /********************************** (C) COPYRIGHT Kacper Janowski 2021 *********** END OF FILE ******/

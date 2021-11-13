@@ -8,6 +8,9 @@
  * ***************************************************************************************************
  */
 
+#define ID "Weather" // Add unique name for this sensor
+#define INTERVAL 60  // Add interval (e.g. 1 min)
+
 /* Variables for ThingSpeak */
 #define CHANNEL_ID 1540710
 #define CHANNEL_API_KEY "C3MWNJUOTW5095ZC"
