@@ -21,7 +21,7 @@
 WiFiUDP ntpUDP;
 NTPClient ntpClient(ntpUDP);
 
-// Loki & Infllux Clients
+// Loki & Infllux & Graphite Clients
 HTTPClient httpInflux;
 HTTPClient httpLoki;
 HTTPClient httpGraphite;
@@ -45,9 +45,11 @@ void setup()
   Serial.begin(9600);
   Wire.begin();
   connectToWiFi();
-    // Initialize a NTPClient to get time
+  // Initialize a NTPClient to get time
   ntpClient.begin();
+  // Initialize a ThingSpeak client
   ThingSpeak.begin(client);
+  // Initialize DHT sensors
   Dht11Sensor.DhtInit();
   Dht22Sensor.DhtInit();
 }
@@ -77,11 +79,11 @@ void loop()
     ntpClient.forceUpdate();
   }
 
-  // Get current timestamp
+  // Get current timestamp for HTTP
   unsigned long ts = ntpClient.getEpochTime();
 
+  // Get measure
   Dht11Sensor.calculatedTemperature();
-
   Dht22Sensor.calculatedTemperature();
 
   // Serial display
@@ -103,6 +105,7 @@ void loop()
 
   String message = "Ok";
 
+  // Send data to Graphana 
   submitToInflux(ts, Dht11Sensor.getComputeHeat(), Dht11Sensor.getHumidity(), Dht22Sensor.getComputeHeat(), Dht22Sensor.getHumidity());
   submitToGraphite(ts, Dht11Sensor.getComputeHeat(), Dht11Sensor.getHumidity(), Dht22Sensor.getComputeHeat(), Dht22Sensor.getHumidity());
   submitToLoki(ts, Dht11Sensor.getComputeHeat(), Dht11Sensor.getHumidity(), Dht22Sensor.getComputeHeat(), Dht22Sensor.getHumidity(), message);
