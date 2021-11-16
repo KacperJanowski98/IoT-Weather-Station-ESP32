@@ -82,6 +82,7 @@ void loop()
   // Get current timestamp for HTTP
   unsigned long ts = ntpClient.getEpochTime();
 
+
   // Get measure
   Dht11Sensor.calculatedTemperature();
   Dht22Sensor.calculatedTemperature();
