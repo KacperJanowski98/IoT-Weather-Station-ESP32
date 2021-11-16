@@ -6,9 +6,9 @@
 ## Hardware
 
 To build this system, you will need:
-- **1 DHT11 sensor to measure temperature and humidity inside
-- **1 DHT22 sensor to measure temperature and humidity outside
-- **1 ESP32 development board
+- **1 DHT11** sensor to measure temperature and humidity inside
+- **1 DHT22** sensor to measure temperature and humidity outside
+- **1 ESP32** development board
 
 ## Libraries:
 
