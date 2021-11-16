@@ -30,3 +30,7 @@ To build this system, you will need:
 ![Image of dashboard](imgs/Dashboard2.jpg)
 
 ## ThingSpeak visualizations
+
+![Image of dashboard](imgs/TS1.jpg)
+
+![Image of dashboard](imgs/TS2.jpg)
