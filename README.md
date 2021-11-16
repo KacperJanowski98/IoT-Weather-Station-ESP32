@@ -2,6 +2,8 @@
 
 System for monitoring air temperature and humidity inside the greenhouse and outside the greenhouse. The monitored values are sent to the ThingSpeak and Grafana platforms.
 
+## Circuit
+
 ![Image of Hardware](imgs/Schemat.jpg)
 
 ## ESP32 & ThingSpeak & Grafana
@@ -20,3 +22,11 @@ To build this system, you will need:
 - **Adafruit Unified Sensor** by Adafruit
 - **NTP Client** by Fabrice Weinberg
 - **ThingSpeak** by Mathworks
+
+## Grafan visualizations
+
+![Image of dashboard](imgs/Dashboard1.jpg)
+
+![Image of dashboard](imgs/Dashboard2.jpg)
+
+## ThingSpeak visualizations
