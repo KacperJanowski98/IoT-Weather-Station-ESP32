@@ -1,5 +1,9 @@
 # The weather station measures temperature and humidity
 
+System for monitoring air temperature and humidity inside the greenhouse and outside the greenhouse. The monitored values are sent to the ThingSpeak and Grafana platforms.
+
+
+
 ## ESP32 & ThingSpeak & Grafana
 > To start, review and follow steps in the **[Grafana DIY IoT repo](https://github.com/grafana/diy-iot)**.
 
