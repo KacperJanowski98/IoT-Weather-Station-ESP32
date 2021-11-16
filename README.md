@@ -40,3 +40,6 @@ To build this system, you will need:
 >There is a free application for Android smartphones **ThingShow-ThingSpeak visualizer**. To connect your channel, just enter the channel number and API key.
 
 <img src="imgs/Aplikacja_wykresy.jpg" width="200 height=400">
+
+## The future of the project
+- **Adding a soil moisture sensor inside the greenhouse**
