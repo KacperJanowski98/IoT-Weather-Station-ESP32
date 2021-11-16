@@ -39,4 +39,4 @@ To build this system, you will need:
 
 >There is a free application for Android smartphones **ThingShow-ThingSpeak visualizer**. To connect your channel, just enter the channel number and API key.
 
-![Image of dashboard](imgs/Aplikacja_wykresy.jpg)
+![Image of dashboard](imgs/Aplikacja_wykresy.jpg =250x150)
