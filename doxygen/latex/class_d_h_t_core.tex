@@ -1,0 +1,181 @@
+\hypertarget{class_d_h_t_core}{}\doxysection{DHTCore Class Reference}
+\label{class_d_h_t_core}\index{DHTCore@{DHTCore}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_d_h_t_core_aa47f3f16862912ca06937b6d4e7450ac}{DHTCore}} (std\+::shared\+\_\+ptr$<$ DHT $>$ dht, float temperature, float humidity, float compute\+Heat)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_d_h_t_core_aa47f3f16862912ca06937b6d4e7450ac}{DHTCore\+::\+DHTCore}} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_d_h_t_core_a262fb564043ba330b3a34679fc42f1ac}{DHTCore}} (const \mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \&other)
+\begin{DoxyCompactList}\small\item\em Copy construct a new \mbox{\hyperlink{class_d_h_t_core_aa47f3f16862912ca06937b6d4e7450ac}{DHTCore\+::\+DHTCore}} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_d_h_t_core_a25aec5c5872569097a66e72301bcf379}{DHTCore}} (\mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \&\&other) noexcept
+\begin{DoxyCompactList}\small\item\em Move construct a new \mbox{\hyperlink{class_d_h_t_core_aa47f3f16862912ca06937b6d4e7450ac}{DHTCore\+::\+DHTCore}} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \& \mbox{\hyperlink{class_d_h_t_core_ab6b2ec79f038f98654a4ac2961dcedaf}{operator=}} (const \mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \&other)
+\begin{DoxyCompactList}\small\item\em Copy operator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \& \mbox{\hyperlink{class_d_h_t_core_a043d8d5d2a9215c82e9354ee9d66ea25}{operator=}} (\mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \&\&other) noexcept
+\begin{DoxyCompactList}\small\item\em Move operator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_d_h_t_core_aa3006466ae8943c13aed4b20b029cb64}\label{class_d_h_t_core_aa3006466ae8943c13aed4b20b029cb64}} 
+\mbox{\hyperlink{class_d_h_t_core_aa3006466ae8943c13aed4b20b029cb64}{$\sim$\+DHTCore}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \mbox{\hyperlink{class_d_h_t_core_aa47f3f16862912ca06937b6d4e7450ac}{DHTCore\+::\+DHTCore}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_d_h_t_core_a516ec025f28c1ae113724f5dddffe576}\label{class_d_h_t_core_a516ec025f28c1ae113724f5dddffe576}} 
+void {\bfseries Dht\+Init} ()
+\item 
+float \mbox{\hyperlink{class_d_h_t_core_af0ec7aa879fa354d0a75e4ec9a274a37}{get\+Temperature}} ()
+\begin{DoxyCompactList}\small\item\em Temperature reading function. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_d_h_t_core_a487241483af8e3f9016b5271796ccd9f}{get\+Humidity}} ()
+\begin{DoxyCompactList}\small\item\em Humidity reading function. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_d_h_t_core_ab78c0d2a62f8d4508d386b521bbe88a7}{get\+Compute\+Heat}} ()
+\begin{DoxyCompactList}\small\item\em Compute heat reading function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_d_h_t_core_a7284ce0b7b72271f32340279f9dcae3b}\label{class_d_h_t_core_a7284ce0b7b72271f32340279f9dcae3b}} 
+void \mbox{\hyperlink{class_d_h_t_core_a7284ce0b7b72271f32340279f9dcae3b}{Dht\+Read\+Data}} ()
+\begin{DoxyCompactList}\small\item\em The function that reads the measurement data from the sensor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_d_h_t_core_afdd6266cc6244e7bf46c672361706499}\label{class_d_h_t_core_afdd6266cc6244e7bf46c672361706499}} 
+void \mbox{\hyperlink{class_d_h_t_core_afdd6266cc6244e7bf46c672361706499}{calculated\+Temperature}} ()
+\begin{DoxyCompactList}\small\item\em Calculating compute heat function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_d_h_t_core_a0bc679054846dcd6aa8788d83c6e2648}\label{class_d_h_t_core_a0bc679054846dcd6aa8788d83c6e2648}} 
+void \mbox{\hyperlink{class_d_h_t_core_a0bc679054846dcd6aa8788d83c6e2648}{display\+Parameter}} ()
+\begin{DoxyCompactList}\small\item\em The function that displays the readout of the sensor values in the log. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 21 of file Dht\+Sensor.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_d_h_t_core_aa47f3f16862912ca06937b6d4e7450ac}\label{class_d_h_t_core_aa47f3f16862912ca06937b6d4e7450ac}} 
+\index{DHTCore@{DHTCore}!DHTCore@{DHTCore}}
+\index{DHTCore@{DHTCore}!DHTCore@{DHTCore}}
+\doxysubsubsection{\texorpdfstring{DHTCore()}{DHTCore()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily DHTCore\+::\+DHTCore (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ DHT $>$}]{dht,  }\item[{float}]{temperature,  }\item[{float}]{humidity,  }\item[{float}]{compute\+Heat }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em dht} & Sensor \\
+\hline
+{\em temperature} & Temperature \\
+\hline
+{\em humidity} & Humidity \\
+\hline
+{\em compute\+Heat} & Compute heat \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 20 of file Dht\+Sensor.\+cpp.
+
+\mbox{\Hypertarget{class_d_h_t_core_a262fb564043ba330b3a34679fc42f1ac}\label{class_d_h_t_core_a262fb564043ba330b3a34679fc42f1ac}} 
+\index{DHTCore@{DHTCore}!DHTCore@{DHTCore}}
+\index{DHTCore@{DHTCore}!DHTCore@{DHTCore}}
+\doxysubsubsection{\texorpdfstring{DHTCore()}{DHTCore()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily DHTCore\+::\+DHTCore (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \&}]{other }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \mbox{\hyperlink{class_d_h_t_core}{DHTCore}} object \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 35 of file Dht\+Sensor.\+cpp.
+
+\mbox{\Hypertarget{class_d_h_t_core_a25aec5c5872569097a66e72301bcf379}\label{class_d_h_t_core_a25aec5c5872569097a66e72301bcf379}} 
+\index{DHTCore@{DHTCore}!DHTCore@{DHTCore}}
+\index{DHTCore@{DHTCore}!DHTCore@{DHTCore}}
+\doxysubsubsection{\texorpdfstring{DHTCore()}{DHTCore()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily DHTCore\+::\+DHTCore (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \mbox{\hyperlink{class_d_h_t_core}{DHTCore}} object \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 47 of file Dht\+Sensor.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_d_h_t_core_ab78c0d2a62f8d4508d386b521bbe88a7}\label{class_d_h_t_core_ab78c0d2a62f8d4508d386b521bbe88a7}} 
+\index{DHTCore@{DHTCore}!getComputeHeat@{getComputeHeat}}
+\index{getComputeHeat@{getComputeHeat}!DHTCore@{DHTCore}}
+\doxysubsubsection{\texorpdfstring{getComputeHeat()}{getComputeHeat()}}
+{\footnotesize\ttfamily float DHTCore\+::get\+Compute\+Heat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+float Value of compute heat 
+\end{DoxyReturn}
+
+
+Definition at line 123 of file Dht\+Sensor.\+cpp.
+
+\mbox{\Hypertarget{class_d_h_t_core_a487241483af8e3f9016b5271796ccd9f}\label{class_d_h_t_core_a487241483af8e3f9016b5271796ccd9f}} 
+\index{DHTCore@{DHTCore}!getHumidity@{getHumidity}}
+\index{getHumidity@{getHumidity}!DHTCore@{DHTCore}}
+\doxysubsubsection{\texorpdfstring{getHumidity()}{getHumidity()}}
+{\footnotesize\ttfamily float DHTCore\+::get\+Humidity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+float Value of humidity 
+\end{DoxyReturn}
+
+
+Definition at line 113 of file Dht\+Sensor.\+cpp.
+
+\mbox{\Hypertarget{class_d_h_t_core_af0ec7aa879fa354d0a75e4ec9a274a37}\label{class_d_h_t_core_af0ec7aa879fa354d0a75e4ec9a274a37}} 
+\index{DHTCore@{DHTCore}!getTemperature@{getTemperature}}
+\index{getTemperature@{getTemperature}!DHTCore@{DHTCore}}
+\doxysubsubsection{\texorpdfstring{getTemperature()}{getTemperature()}}
+{\footnotesize\ttfamily float DHTCore\+::get\+Temperature (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+float Value of temperature 
+\end{DoxyReturn}
+
+
+Definition at line 103 of file Dht\+Sensor.\+cpp.
+
+\mbox{\Hypertarget{class_d_h_t_core_ab6b2ec79f038f98654a4ac2961dcedaf}\label{class_d_h_t_core_ab6b2ec79f038f98654a4ac2961dcedaf}} 
+\index{DHTCore@{DHTCore}!operator=@{operator=}}
+\index{operator=@{operator=}!DHTCore@{DHTCore}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \& DHTCore\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \&}]{other }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \mbox{\hyperlink{class_d_h_t_core}{DHTCore}} object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_d_h_t_core}{DHTCore}}\& 
+\end{DoxyReturn}
+
+
+Definition at line 60 of file Dht\+Sensor.\+cpp.
+
+\mbox{\Hypertarget{class_d_h_t_core_a043d8d5d2a9215c82e9354ee9d66ea25}\label{class_d_h_t_core_a043d8d5d2a9215c82e9354ee9d66ea25}} 
+\index{DHTCore@{DHTCore}!operator=@{operator=}}
+\index{operator=@{operator=}!DHTCore@{DHTCore}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \& DHTCore\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \mbox{\hyperlink{class_d_h_t_core}{DHTCore}} object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_d_h_t_core}{DHTCore}}\& 
+\end{DoxyReturn}
+
+
+Definition at line 75 of file Dht\+Sensor.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_dht_sensor_8h}{Dht\+Sensor.\+h}}\item 
+\mbox{\hyperlink{_dht_sensor_8cpp}{Dht\+Sensor.\+cpp}}\end{DoxyCompactItemize}

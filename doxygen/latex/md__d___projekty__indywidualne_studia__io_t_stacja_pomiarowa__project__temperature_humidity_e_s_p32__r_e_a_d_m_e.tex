@@ -1,0 +1,31 @@
+System for monitoring air temperature and humidity inside the greenhouse and outside the greenhouse. The monitored values are sent to the Thing\+Speak and Grafana platforms.\hypertarget{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md1}{}\doxysection{Circuit}\label{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md1}
+\hypertarget{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md2}{}\doxysection{ESP32 \& Thing\+Speak \& Grafana}\label{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md2}
+\begin{quote}
+To start, review and follow steps in the {\bfseries{\href{https://github.com/grafana/diy-iot}{\texttt{ Grafana DIY IoT repo}}}}. \end{quote}
+\hypertarget{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md3}{}\doxysection{Hardware}\label{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md3}
+To build this system, you will need\+:
+\begin{DoxyItemize}
+\item {\bfseries{1 DHT11}} sensor to measure temperature and humidity inside
+\item {\bfseries{1 DHT22}} sensor to measure temperature and humidity outside
+\item {\bfseries{1 ESP32}} development board
+\end{DoxyItemize}\hypertarget{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md4}{}\doxysection{Libraries\+:}\label{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md4}
+
+\begin{DoxyItemize}
+\item {\bfseries{DHT sensor library by}} Adafruit
+\item {\bfseries{Adafruit Unified Sensor}} by Adafruit
+\item {\bfseries{NTP Client}} by Fabrice Weinberg
+\item {\bfseries{Thing\+Speak}} by Mathworks
+\end{DoxyItemize}\hypertarget{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md5}{}\doxysection{Grafan visualizations}\label{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md5}
+
+
+\hypertarget{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md6}{}\doxysection{Thing\+Speak visualizations}\label{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md6}
+
+
+\hypertarget{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md7}{}\doxysection{Android application}\label{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md7}
+$>$There is a free application for Android smartphones {\bfseries{Thing\+Show-\/\+Thing\+Speak visualizer}}. To connect your channel, just enter the channel number and API key.
+
+\hypertarget{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md8}{}\doxysection{The future of the project}\label{md__d___projekty__indywidualne_studia__io_t_stacja_pomiarowa__project__temperature_humidity_e_s_p32__r_e_a_d_m_e_autotoc_md8}
+
+\begin{DoxyItemize}
+\item {\bfseries{Adding a soil moisture sensor inside the greenhouse}} 
+\end{DoxyItemize}

@@ -1,0 +1,231 @@
+\hypertarget{main_8cpp}{}\doxysection{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.cpp@{main.cpp}}
+{\ttfamily \#include $<$Wire.\+h$>$}\newline
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$Adafruit\+\_\+\+Sensor.\+h$>$}\newline
+{\ttfamily \#include $<$Wi\+Fi.\+h$>$}\newline
+{\ttfamily \#include $<$NTPClient.\+h$>$}\newline
+{\ttfamily \#include $<$HTTPClient.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Thing\+Speak.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dht\+Sensor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+NTPClient \mbox{\hyperlink{main_8cpp_a788072a51b98f5d3259a5f054950f302}{ntp\+Client}} (\mbox{\hyperlink{main_8cpp_a22f33e7e05df58bb6145bb6e543e232a}{ntp\+UDP}})
+\item 
+DHT \mbox{\hyperlink{main_8cpp_a870da2cfea888c9e3e87819805dc8279}{dht11}} (DHTPIN, DHTTYPE)
+\item 
+DHT \mbox{\hyperlink{main_8cpp_abaf4eacfae191d46d074d7aad320eb40}{dht22}} (DHT22\+PIN, DHT22\+TYPE)
+\item 
+void \mbox{\hyperlink{main_8cpp_ae786f8044734bf7283b0df88675335c5}{connect\+To\+Wi\+Fi}} ()
+\begin{DoxyCompactList}\small\item\em Function declarations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_afc251224c823f3bd5c4f645ee8f5794e}{submit\+To\+Influx}} (unsigned long ts, float temp\+Inside, float hum\+Inside, float temp\+Out\+Side, float hum\+Outside)
+\item 
+void \mbox{\hyperlink{main_8cpp_a24dcdafcd7723a47ea6847be89737927}{submit\+To\+Loki}} (unsigned long ts, float temp\+Inside, float hum\+Inside, float temp\+Out\+Side, float hum\+Outside, String message)
+\item 
+void \mbox{\hyperlink{main_8cpp_a29690ce3ba207dc9582d2a5909ee5835}{submit\+To\+Graphite}} (unsigned long ts, float temp\+Inside, float hum\+Inside, float temp\+Out\+Side, float hum\+Outside)
+\item 
+void \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\item 
+void \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Wi\+Fi\+UDP \mbox{\hyperlink{main_8cpp_a22f33e7e05df58bb6145bb6e543e232a}{ntp\+UDP}}
+\item 
+HTTPClient \mbox{\hyperlink{main_8cpp_ab8bd77d0c32410a5fa731db4d88b4511}{http\+Influx}}
+\item 
+HTTPClient \mbox{\hyperlink{main_8cpp_a558501c6538ccec333397b9e076a951d}{http\+Loki}}
+\item 
+HTTPClient \mbox{\hyperlink{main_8cpp_ab844701d79fb8896a0e68745c414eaae}{http\+Graphite}}
+\item 
+Wi\+Fi\+Client \mbox{\hyperlink{main_8cpp_a323dfc205549b3c13f0a25c1b670708a}{client}}
+\item 
+\mbox{\Hypertarget{main_8cpp_a360f3255b4607e0bc933dd587224d33d}\label{main_8cpp_a360f3255b4607e0bc933dd587224d33d}} 
+\mbox{\hyperlink{class_d_h_t_core}{DHTCore}} \mbox{\hyperlink{main_8cpp_a360f3255b4607e0bc933dd587224d33d}{Dht11\+Sensor}} (std\+::make\+\_\+shared$<$ DHT $>$(\mbox{\hyperlink{main_8cpp_a870da2cfea888c9e3e87819805dc8279}{dht11}}), 0.\+0f, 0.\+0f, 0.\+0f)
+\begin{DoxyCompactList}\small\item\em Sensor initialization. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8cpp_a92bc569e7394595f43611c54d6c2bf3c}\label{main_8cpp_a92bc569e7394595f43611c54d6c2bf3c}} 
+\mbox{\hyperlink{class_d_h_t_core}{DHTCore}} {\bfseries Dht22\+Sensor} (std\+::make\+\_\+shared$<$ DHT $>$(\mbox{\hyperlink{main_8cpp_abaf4eacfae191d46d074d7aad320eb40}{dht22}}), 0.\+0f, 0.\+0f, 0.\+0f)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\DoxyHorRuler{0}
+
+
+\begin{DoxyAuthor}{Author}
+Kacper Janowski 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2021-\/10-\/19 \DoxyHorRuler{0}
+ 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_ae786f8044734bf7283b0df88675335c5}\label{main_8cpp_ae786f8044734bf7283b0df88675335c5}} 
+\index{main.cpp@{main.cpp}!connectToWiFi@{connectToWiFi}}
+\index{connectToWiFi@{connectToWiFi}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{connectToWiFi()}{connectToWiFi()}}
+{\footnotesize\ttfamily void connect\+To\+Wi\+Fi (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Keep looping while we\textquotesingle{}re not connected and haven\textquotesingle{}t reached the timeout
+
+Make sure we\textquotesingle{}re actually connected, otherwise go to deep sleep
+
+Restrart ESP
+
+Definition at line 122 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a870da2cfea888c9e3e87819805dc8279}\label{main_8cpp_a870da2cfea888c9e3e87819805dc8279}} 
+\index{main.cpp@{main.cpp}!dht11@{dht11}}
+\index{dht11@{dht11}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{dht11()}{dht11()}}
+{\footnotesize\ttfamily DHT dht11 (\begin{DoxyParamCaption}\item[{DHTPIN}]{,  }\item[{DHTTYPE}]{ }\end{DoxyParamCaption})}
+
+DHT class object to support DHT11 sensor \mbox{\Hypertarget{main_8cpp_abaf4eacfae191d46d074d7aad320eb40}\label{main_8cpp_abaf4eacfae191d46d074d7aad320eb40}} 
+\index{main.cpp@{main.cpp}!dht22@{dht22}}
+\index{dht22@{dht22}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{dht22()}{dht22()}}
+{\footnotesize\ttfamily DHT dht22 (\begin{DoxyParamCaption}\item[{DHT22\+PIN}]{,  }\item[{DHT22\+TYPE}]{ }\end{DoxyParamCaption})}
+
+DHT class object to support DHT22 sensor \mbox{\Hypertarget{main_8cpp_afe461d27b9c48d5921c00d521181f12f}\label{main_8cpp_afe461d27b9c48d5921c00d521181f12f}} 
+\index{main.cpp@{main.cpp}!loop@{loop}}
+\index{loop@{loop}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Check if any reads failed and exit early (to try again).
+
+Check if any reads failed and exit early (to try again).
+
+Update time via NTP if required
+
+Get current timestamp for HTTP
+
+Get measure
+
+Serial display
+
+Writing to only one field.
+
+Thing\+Speak.\+write\+Field(\+CHANNEL\+\_\+\+ID, 1, counter, CHANNEL\+\_\+\+API\+\_\+\+KEY);
+
+Writing to multiple fields.
+
+Send data to Graphana
+
+A delay of 15s is required between consecutive data sent to Thing\+Speak.
+
+Definition at line 62 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a788072a51b98f5d3259a5f054950f302}\label{main_8cpp_a788072a51b98f5d3259a5f054950f302}} 
+\index{main.cpp@{main.cpp}!ntpClient@{ntpClient}}
+\index{ntpClient@{ntpClient}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ntpClient()}{ntpClient()}}
+{\footnotesize\ttfamily NTPClient ntp\+Client (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{main_8cpp_a22f33e7e05df58bb6145bb6e543e232a}{ntp\+UDP}}}]{ }\end{DoxyParamCaption})}
+
+NTPClient class object \mbox{\Hypertarget{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}\label{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}} 
+\index{main.cpp@{main.cpp}!setup@{setup}}
+\index{setup@{setup}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Initialize a NTPClient to get time
+
+Initialize a Thing\+Speak client
+
+Initialize DHT sensors
+
+Definition at line 48 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a29690ce3ba207dc9582d2a5909ee5835}\label{main_8cpp_a29690ce3ba207dc9582d2a5909ee5835}} 
+\index{main.cpp@{main.cpp}!submitToGraphite@{submitToGraphite}}
+\index{submitToGraphite@{submitToGraphite}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{submitToGraphite()}{submitToGraphite()}}
+{\footnotesize\ttfamily void submit\+To\+Graphite (\begin{DoxyParamCaption}\item[{unsigned long}]{ts,  }\item[{float}]{temp\+Inside,  }\item[{float}]{hum\+Inside,  }\item[{float}]{temp\+Out\+Side,  }\item[{float}]{hum\+Outside }\end{DoxyParamCaption})}
+
+Function to submit logs to Graphite Build hosted metrics json payload
+
+Submit POST request via HTTP
+
+Definition at line 180 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_afc251224c823f3bd5c4f645ee8f5794e}\label{main_8cpp_afc251224c823f3bd5c4f645ee8f5794e}} 
+\index{main.cpp@{main.cpp}!submitToInflux@{submitToInflux}}
+\index{submitToInflux@{submitToInflux}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{submitToInflux()}{submitToInflux()}}
+{\footnotesize\ttfamily void submit\+To\+Influx (\begin{DoxyParamCaption}\item[{unsigned long}]{ts,  }\item[{float}]{temp\+Inside,  }\item[{float}]{hum\+Inside,  }\item[{float}]{temp\+Out\+Side,  }\item[{float}]{hum\+Outside }\end{DoxyParamCaption})}
+
+Function to submit metrics to Influx Submit POST request via HTTP
+
+Definition at line 152 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a24dcdafcd7723a47ea6847be89737927}\label{main_8cpp_a24dcdafcd7723a47ea6847be89737927}} 
+\index{main.cpp@{main.cpp}!submitToLoki@{submitToLoki}}
+\index{submitToLoki@{submitToLoki}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{submitToLoki()}{submitToLoki()}}
+{\footnotesize\ttfamily void submit\+To\+Loki (\begin{DoxyParamCaption}\item[{unsigned long}]{ts,  }\item[{float}]{temp\+Inside,  }\item[{float}]{hum\+Inside,  }\item[{float}]{temp\+Out\+Side,  }\item[{float}]{hum\+Outside,  }\item[{String}]{message }\end{DoxyParamCaption})}
+
+Function to submit logs to Loki Submit POST request via HTTP
+
+Definition at line 166 of file main.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{main_8cpp_a323dfc205549b3c13f0a25c1b670708a}\label{main_8cpp_a323dfc205549b3c13f0a25c1b670708a}} 
+\index{main.cpp@{main.cpp}!client@{client}}
+\index{client@{client}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{client}{client}}
+{\footnotesize\ttfamily Wi\+Fi\+Client client}
+
+Wi\+Fi\+Client class object to support internet connection 
+
+Definition at line 27 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_ab844701d79fb8896a0e68745c414eaae}\label{main_8cpp_ab844701d79fb8896a0e68745c414eaae}} 
+\index{main.cpp@{main.cpp}!httpGraphite@{httpGraphite}}
+\index{httpGraphite@{httpGraphite}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{httpGraphite}{httpGraphite}}
+{\footnotesize\ttfamily HTTPClient http\+Graphite}
+
+HTTPClient class object for Graphite 
+
+Definition at line 25 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_ab8bd77d0c32410a5fa731db4d88b4511}\label{main_8cpp_ab8bd77d0c32410a5fa731db4d88b4511}} 
+\index{main.cpp@{main.cpp}!httpInflux@{httpInflux}}
+\index{httpInflux@{httpInflux}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{httpInflux}{httpInflux}}
+{\footnotesize\ttfamily HTTPClient http\+Influx}
+
+HTTPClient class object for Influx 
+
+Definition at line 23 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a558501c6538ccec333397b9e076a951d}\label{main_8cpp_a558501c6538ccec333397b9e076a951d}} 
+\index{main.cpp@{main.cpp}!httpLoki@{httpLoki}}
+\index{httpLoki@{httpLoki}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{httpLoki}{httpLoki}}
+{\footnotesize\ttfamily HTTPClient http\+Loki}
+
+HTTPClient class object for Loki 
+
+Definition at line 24 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a22f33e7e05df58bb6145bb6e543e232a}\label{main_8cpp_a22f33e7e05df58bb6145bb6e543e232a}} 
+\index{main.cpp@{main.cpp}!ntpUDP@{ntpUDP}}
+\index{ntpUDP@{ntpUDP}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ntpUDP}{ntpUDP}}
+{\footnotesize\ttfamily Wi\+Fi\+UDP ntp\+UDP}
+
+Wi\+Fi\+UDP class object 
+
+Definition at line 20 of file main.\+cpp.
+
