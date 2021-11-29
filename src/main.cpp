@@ -17,25 +17,30 @@
 #include "DhtSensor.h"
 #include "config.h"
 
-// NTP Client
-WiFiUDP ntpUDP;
-NTPClient ntpClient(ntpUDP);
+WiFiUDP ntpUDP;                       /**< WiFiUDP class object */
+NTPClient ntpClient(ntpUDP);          /**< NTPClient class object */
 
-// Loki & Infllux & Graphite Clients
-HTTPClient httpInflux;
-HTTPClient httpLoki;
-HTTPClient httpGraphite;
+HTTPClient httpInflux;                /**< HTTPClient class object for Influx */
+HTTPClient httpLoki;                  /**< HTTPClient class object for Loki */
+HTTPClient httpGraphite;              /**< HTTPClient class object for Graphite */
 
-WiFiClient client;
-DHT dht11(DHTPIN, DHTTYPE);
-DHT dht22(DHT22PIN, DHT22TYPE);
+WiFiClient client;                    /**< WiFiClient class object to support internet connection */
+DHT dht11(DHTPIN, DHTTYPE);           /**< DHT class object to support DHT11 sensor */
+DHT dht22(DHT22PIN, DHT22TYPE);       /**< DHT class object to support DHT22 sensor */
 
+/**
+ * @brief Sensor initialization
+ * 
+ */
 DHTCore Dht11Sensor(std::make_shared<DHT>(dht11), 0.0f, 0.0f, 0.0f);
 
 DHTCore Dht22Sensor(std::make_shared<DHT>(dht22), 0.0f, 0.0f, 0.0f);
 
+/**
+ * @brief Function declarations
+ * 
+ */
 void connectToWiFi();
-
 void submitToInflux(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside);
 void submitToLoki(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside, String message);
 void submitToGraphite(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside);
@@ -45,11 +50,11 @@ void setup()
   Serial.begin(9600);
   Wire.begin();
   connectToWiFi();
-  // Initialize a NTPClient to get time
+  /** Initialize a NTPClient to get time */
   ntpClient.begin();
-  // Initialize a ThingSpeak client
+  /** Initialize a ThingSpeak client */
   ThingSpeak.begin(client);
-  // Initialize DHT sensors
+  /** Initialize DHT sensors */
   Dht11Sensor.DhtInit();
   Dht22Sensor.DhtInit();
 }
@@ -59,43 +64,43 @@ void loop()
   Dht11Sensor.DhtReadData();
   Dht22Sensor.DhtReadData();
 
-  // Check if any reads failed and exit early (to try again).
+  /** Check if any reads failed and exit early (to try again). */
   if (isnan(Dht11Sensor.getHumidity()) || isnan(Dht11Sensor.getTemperature()))
   {
     Serial.println("Failed to read from DHT11 sensor!");
     return;
   }
 
-  // Check if any reads failed and exit early (to try again).
+  /** Check if any reads failed and exit early (to try again). */
   if (isnan(Dht22Sensor.getHumidity()) || isnan(Dht22Sensor.getTemperature()))
   {
     Serial.println("Failed to read from DHT22 sensor!");
     return;
   }
 
-    // Update time via NTP if required
+  /** Update time via NTP if required */
   while (!ntpClient.update()) {
     yield();
     ntpClient.forceUpdate();
   }
 
-  // Get current timestamp for HTTP
+  /** Get current timestamp for HTTP */
   unsigned long ts = ntpClient.getEpochTime();
 
-  // Get measure
+  /** Get measure */
   Dht11Sensor.calculatedTemperature();
   Dht22Sensor.calculatedTemperature();
 
-  // Serial display
+  /** Serial display */
   Serial.println("Inside measure:");
   Dht11Sensor.displayParameter();
   Serial.println("Outside measure:");
   Dht22Sensor.displayParameter();
 
-  // Writing to only one field.
-  // ThingSpeak.writeField(CHANNEL_ID, 1, counter, CHANNEL_API_KEY);
+  /** Writing to only one field. */
+  /** ThingSpeak.writeField(CHANNEL_ID, 1, counter, CHANNEL_API_KEY); */
 
-  // Writing to multiple fields.
+  /** Writing to multiple fields. */
   ThingSpeak.setField(1, Dht11Sensor.getComputeHeat());
   ThingSpeak.setField(2, Dht11Sensor.getHumidity());
   ThingSpeak.setField(3, Dht22Sensor.getComputeHeat());
@@ -105,12 +110,12 @@ void loop()
 
   String message = "Ok";
 
-  // Send data to Graphana 
+  /** Send data to Graphana */
   submitToInflux(ts, Dht11Sensor.getComputeHeat(), Dht11Sensor.getHumidity(), Dht22Sensor.getComputeHeat(), Dht22Sensor.getHumidity());
   submitToGraphite(ts, Dht11Sensor.getComputeHeat(), Dht11Sensor.getHumidity(), Dht22Sensor.getComputeHeat(), Dht22Sensor.getHumidity());
   submitToLoki(ts, Dht11Sensor.getComputeHeat(), Dht11Sensor.getHumidity(), Dht22Sensor.getComputeHeat(), Dht22Sensor.getHumidity(), message);
 
-  // A delay of 15s is required between consecutive data sent to ThingSpeak.
+  /** A delay of 15s is required between consecutive data sent to ThingSpeak. */
   delay(15000);
 }
 
@@ -122,7 +127,7 @@ void connectToWiFi()
 
   unsigned long startAttemptTime = millis();
 
-  // Keep looping while we're not connected and haven't reached the timeout
+  /** Keep looping while we're not connected and haven't reached the timeout */
   while (WiFi.status() != WL_CONNECTED &&
           millis() - startAttemptTime < WIFI_TIMEOUT_MS)
   {
@@ -130,11 +135,11 @@ void connectToWiFi()
     delay(100);
   }
 
-  // Make sure we're actually connected, otherwise go to deep sleep
+  /** Make sure we're actually connected, otherwise go to deep sleep */
   if (WiFi.status() != WL_CONNECTED)
   {
     Serial.println(" Failed!");
-    ESP.restart();  // Restrart ESP
+    ESP.restart();  /** Restrart ESP */
   }
   else
   {
@@ -143,13 +148,13 @@ void connectToWiFi()
   }
 }
 
-// Function to submit metrics to Influx
+/** Function to submit metrics to Influx */
 void submitToInflux(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside)
 {
   String influxClient = String("https://") + INFLUX_HOST + "/api/v2/write?org=" + INFLUX_ORG_ID + "&bucket=" + INFLUX_BUCKET + "&precision=s";
   String body = String("temperature inside value=") + tempInside + " " + ts + "\n" + "humidity inside value=" + humInside + " " + ts + "\n" + "temperature outside value=" + tempOutSide + " " + ts + "\n" + "humidity outside value=" + humOutside + " " + ts;
 
-  // Submit POST request via HTTP
+  /** Submit POST request via HTTP */
   httpInflux.begin(influxClient);
   httpInflux.addHeader("Authorization", INFLUX_TOKEN);
   int httpCode = httpInflux.POST(body);
@@ -157,13 +162,13 @@ void submitToInflux(unsigned long ts, float tempInside, float humInside, float t
   httpInflux.end();
 }
 
-// Function to submit logs to Loki
+/** Function to submit logs to Loki */
 void submitToLoki(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside, String message)
 {
   String lokiClient = String("https://") + LOKI_USER + ":" + LOKI_API_KEY + "@logs-prod-us-central1.grafana.net/loki/api/v1/push";
   String body = String("{\"streams\": [{ \"stream\": { \"plant_id\": \"2021_11_13\", \"monitoring_type\": \"weather\"}, \"values\": [ [ \"") + ts + "000000000\", \"" + "temperatureInside=" + tempInside + " humidityInside=" + humInside + " temperatureOutside=" + tempOutSide + " humidityOutside=" + humOutside + " status=" + message + "\" ] ] }]}";
 
-  // Submit POST request via HTTP
+  /** Submit POST request via HTTP */
   httpLoki.begin(lokiClient);
   httpLoki.addHeader("Content-Type", "application/json");
   int httpCode = httpLoki.POST(body);
@@ -171,16 +176,16 @@ void submitToLoki(unsigned long ts, float tempInside, float humInside, float tem
   httpLoki.end();
 }
 
-// Function to submit logs to Graphite
+/** Function to submit logs to Graphite */
 void submitToGraphite(unsigned long ts, float tempInside, float humInside, float tempOutSide, float humOutside) {
-  // build hosted metrics json payload
+  /** Build hosted metrics json payload */
   String body = String("[") +
     "{\"name\":\"temperatureInside\",\"interval\":" + INTERVAL + ",\"value\":" + tempInside + ",\"mtype\":\"gauge\",\"time\":" + ts + "}," +
     "{\"name\":\"humidityInside\",\"interval\":" + INTERVAL + ",\"value\":" + humInside + ",\"mtype\":\"gauge\",\"time\":" + ts + "}," +
     "{\"name\":\"temperatureOutside\",\"interval\":" + INTERVAL + ",\"value\":" + tempOutSide + ",\"mtype\":\"gauge\",\"time\":" + ts + "}," +
     "{\"name\":\"humidityOutside\",\"interval\":" + INTERVAL + ",\"value\":" + humOutside + ",\"mtype\":\"gauge\",\"time\":" + ts + "}]";
 
-  // submit POST request via HTTP
+  /** Submit POST request via HTTP */
   httpGraphite.begin("https://graphite-prod-01-eu-west-0.grafana.net/graphite/metrics");
   httpGraphite.setAuthorization(GRAPHITE_USER, GRAPHITE_API_KEY);
   httpGraphite.addHeader("Content-Type", "application/json");
