@@ -11,16 +11,16 @@
 #define ID "Weather" 
 #define INTERVAL 60  
 
-/* Variables for ThingSpeak */
+/** Variables for ThingSpeak */
 #define CHANNEL_ID 1540710
 #define CHANNEL_API_KEY "C3MWNJUOTW5095ZC"
 
-/* Variables for WiFI */
+/** Variables for WiFI */
 #define WIFI_TIMEOUT_MS 20000
 #define WIFI_SSID "AndroidAP_note8"
 #define WIFI_PASSWORD "sensor123"
 
-/* Variables for InfluxDB */
+/** Variables for InfluxDB */
 #define INFLUX_HOST "https://eu-central-1-1.aws.cloud2.influxdata.com" 
 #define INFLUX_ORG_ID "5abdc36e1de4a515" 
 #define INFLUX_TOKEN "6f-ur6WueGwzxoMHz0dYm77v0CyMiR3mG1bFEGZMtVvOjk9gJw86t33OtiCSFj5qbAPi3aXMY9zz_efhvSZq1Q==" 
